@@ -9,7 +9,7 @@ function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
   } else {
-    x.innerHTML = "Geolocation is not supported by this browser.";
+    notification.innerHTML = "Geolocation is not supported by this browser.";
   }
 }
 
@@ -25,10 +25,20 @@ function onSuccess(position) {
       "&appid=" +
       apikey
   );
-  console.log("info", weather);
-  //console.log(position);
-  //latitude=position.coords.
+  weather
+    .then((response) => response.json())
+    .then((weather) => {
+      console.log(weather);
+      console.log(weather.weather[0].icon);
+      console.log(parseInt(weather.main.temp - 273.15));
+      console.log(weather.weather[0].main);
+      console.log(weather.name);
+    });
 }
+//console.log("info", weather);
+//console.log(position);
+//latitude=position.coords.
+
 function onError(error) {
   console.error(error);
   //notification[0].innerHTML = error.message;
