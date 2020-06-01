@@ -1,13 +1,12 @@
-const apikey = "fc23f3d15fe82766be499abecf9ba733";
+const apikey = "a75595ec0a1e42379ec6d18c703db66a";
 
 let latitude;
 let longitude;
 const notification = document.getElementsByClassName("notification")[0];
 
 function getLocation() {
-  //console.log(navigator.geolocation);
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    navigator.geolocation.getCurrentPosition(render, onError);
   } else {
     notification.innerHTML = "Geolocation is not supported by this browser.";
   }
@@ -16,50 +15,44 @@ function kelvinToCelsius(temp) {
   return temp - 273.15;
 }
 
-function onSuccess(position) {
+function render(position) {
   latitude = position.coords.latitude;
   longitude = position.coords.longitude;
-  const weather = fetch(
-    "https://api.openweathermap.org/data/2.5/weather?" +
+  const get = fetch(
+    "https://api.weatherbit.io/v2.0/current?" +
       "lat=" +
       latitude +
       "&lon=" +
       longitude +
-      "&appid=" +
+      "&key=" +
       apikey
   );
-  weather
+  get
     .then((response) => response.json())
-    .then((weather) => {
-      //console.log(weather);
-      //console.log(weather.weather[0].icon);
-      //console.log(parseInt(weather.main.temp - 273.15));
-      //console.log(weather.weather[0].main);
-      //console.log(weather.name);
+    .then((get) => {
+     
 
-      const location = weather.name;
+      const location = get.city_name;
       const loacationHtmlElement = document.getElementsByClassName("location")[0];
       loacationHtmlElement.innerHTML = "<p>" + location + "</p>";
-      const temp = kelvinToCelsius(weather.main.temp).toFixed(1);
+      const temp = kelvinToCelsius(get.temp).toFixed(1);
       const tempHtmlElement = document.getElementsByClassName("temperature-value")[0];
       tempHtmlElement.innerHTML = "<p>" + temp + "°<span>C</span></p>";
-      const icon = weather.weather[0].icon;
+      const icon = get.weather.icon;
       const iconHtmlElement = document.getElementsByClassName("weather-icon")[0];
       iconHtmlElement.innerHTML = "<img src='icons/" + icon + ".png' alt=''></img>";
-      const weatherDescription = weather.weather[0].main;
+      const weatherDescription = get.weather.description;
       const weatherDescriptionHtmlElement = document.getElementsByClassName(
         "temperature-description"
       )[0];
       weatherDescriptionHtmlElement.innerHTML = "<p>" + weatherDescription + "</p>";
     });
+    
 }
-//console.log("info", weather);
-//console.log(position);
-//latitude=position.coords.
+
 
 function onError(error) {
   console.error(error);
-  //notification[0].innerHTML = error.message;
   const p = document.createElement("p");
   p.innerHTML = error.message;
   notification.style.display = "block";
