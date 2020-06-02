@@ -32,16 +32,16 @@ function render(position) {
     .then((get) => {
      
 
-      const location = get.city_name;
+      const location = get.data[0].city_name;
       const loacationHtmlElement = document.getElementsByClassName("location")[0];
       loacationHtmlElement.innerHTML = "<p>" + location + "</p>";
-      const temp = kelvinToCelsius(get.temp).toFixed(1);
+      const temp = kelvinToCelsius(get.data[0].temp).toFixed(1);
       const tempHtmlElement = document.getElementsByClassName("temperature-value")[0];
       tempHtmlElement.innerHTML = "<p>" + temp + "°<span>C</span></p>";
-      const icon = get.weather.icon;
+      const icon = get.data[0].weather.icon;
       const iconHtmlElement = document.getElementsByClassName("weather-icon")[0];
       iconHtmlElement.innerHTML = "<img src='icons/" + icon + ".png' alt=''></img>";
-      const weatherDescription = get.weather.description;
+      const weatherDescription = get.data[0].weather.description;
       const weatherDescriptionHtmlElement = document.getElementsByClassName(
         "temperature-description"
       )[0];
