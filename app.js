@@ -11,9 +11,7 @@ function getLocation() {
     notification.innerHTML = "Geolocation is not supported by this browser.";
   }
 }
-function kelvinToCelsius(temp) {
-  return temp - 273.15;
-}
+
 
 function render(position) {
   latitude = position.coords.latitude;
@@ -35,7 +33,7 @@ function render(position) {
       const location = get.data[0].city_name;
       const loacationHtmlElement = document.getElementsByClassName("location")[0];
       loacationHtmlElement.innerHTML = "<p>" + location + "</p>";
-      const temp = kelvinToCelsius(get.data[0].temp).toFixed(1);
+      const temp = get.data[0].temp.toFixed(1);
       const tempHtmlElement = document.getElementsByClassName("temperature-value")[0];
       tempHtmlElement.innerHTML = "<p>" + temp + "°<span>C</span></p>";
       const icon = get.data[0].weather.icon;
