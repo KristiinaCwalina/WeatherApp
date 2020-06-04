@@ -1,5 +1,4 @@
 const apikey = "a75595ec0a1e42379ec6d18c703db66a";
-let userCity = document.getElementById("get").value;
 let latitude;
 let longitude;
 const notification = document.getElementsByClassName("notification")[0];
@@ -11,7 +10,6 @@ function getLocation() {
     notification.innerHTML = "Geolocation is not supported by this browser.";
   }
 }
-
 
 function render(position) {
   latitude = position.coords.latitude;
@@ -51,7 +49,6 @@ function render(position) {
     
 }
 
-
 function onError(error) {
   console.error(error);
   const p = document.createElement("p");
@@ -61,14 +58,9 @@ function onError(error) {
 }
 getLocation();
 
-let button = document.getElementById("get");
-button.addEventListener("submit", e => {
-  e.preventDefault();
-});
 
 function getWeather(){
-    let userCity = document.getElementById("get").value;
-  
+    let userCity = document.getElementById("userCity").value;
   
     const getCity = fetch(
       "https://api.weatherbit.io/v2.0/current?" +
@@ -81,9 +73,9 @@ function getWeather(){
 .then((response) => response.json())
 .then((get) => {
 
-  const userCity =get.data[0].city_name;
+  const location =get.data[0].city_name;
   const loacationHtmlElement = document.getElementsByClassName("location")[0];
-  loacationHtmlElement.innerHTML = "<p>" + userCity + "</p>";
+  loacationHtmlElement.innerHTML = "<p>" + location + "</p>";
   const temp = get.data[0].temp.toFixed(1);
   const tempHtmlElement = document.getElementsByClassName("temperature-value")[0];
   tempHtmlElement.innerHTML = "<p>" + temp + "°<span>C</span></p>";
@@ -95,11 +87,14 @@ function getWeather(){
     "temperature-description"
   )[0];
   weatherDescriptionHtmlElement.innerHTML = "<p>" + weatherDescription + "</p>";
-})
+}
+)
+
 .catch((error) => {
   console.error('Error:', error);
 });
 
 }
-
+let button = document.getElementById("get");
+button.addEventListener("click", getWeather);
 
