@@ -16,6 +16,16 @@ body {
   border-radius: 10px;
   padding-bottom: 50px;
 }
+.cityContainer {
+  width: 300px;
+  background-color: #fff;
+
+  display: block;
+  margin: 0 auto;
+
+  border-radius: 10px;
+  padding-bottom: 50px;
+}
 
 .app-title {
   width: 300px;
@@ -28,7 +38,7 @@ body {
   padding: 15px;
   margin: 0 auto;
   font-size: 1.2em;
-  color: #293251;
+  color: red;
 }
 
 .notification {
@@ -60,12 +70,20 @@ body {
   margin: 0 auto;
 }
 
-.temperature-value {
+.temperature-value, .cityTemp {
   width: 300px;
   height: 60px;
 }
 
 .temperature-value p {
+  padding: 0;
+  margin: 0;
+  color: #293251;
+  font-size: 4em;
+  text-align: center;
+  cursor: pointer;
+}
+.cityTemp p {
   padding: 0;
   margin: 0;
   color: #293251;
@@ -81,11 +99,21 @@ body {
   color: #293251;
   font-size: 0.5em;
 }
-
+.cityTemp span {
+  color: #293251;
+  font-size: 0.5em;
+}
 .temperature-description {
 }
 
 .temperature-description p {
+  padding: 8px;
+  margin: 0;
+  color: #293251;
+  text-align: center;
+  font-size: 1.2em;
+}
+.cityTempDesc p {
   padding: 8px;
   margin: 0;
   color: #293251;
@@ -103,3 +131,26 @@ body {
   text-align: center;
   font-size: 0.8em;
 }
+.cityLocation{
+  margin: 0;
+  padding: 0;
+  color: #293251;
+  text-align: center;
+  font-size: 0.8em;
+}
+.geocoder {
+  position: absolute;
+  z-index: 1;
+  width: 50%;
+  left: 50%;
+  margin-left: -25%;
+  top: 10px;
+  }
+  
+  #map {
+  margin-top: 475px;
+  position: absolute; 
+  top: 0; 
+  bottom: 0; 
+  width: 100%; 
+  }

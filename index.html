@@ -5,10 +5,18 @@
     <title>Weather App - JavaScript</title>
     <link rel="stylesheet" href="font/Rimouski.css">
     <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+<script src="https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.css" rel="stylesheet" />
 </head>
 <body>
+    <link
+rel="stylesheet"
+href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css"
+type="text/css"
+/>
     <div>
-    <input type="text" placeholder="search" id= "userCity" ></input>
+    <input type="text" placeholder="search" id="userCity" ></input>
     <button type="submit" id = "get">Search</button>
 </div>
 <br>
@@ -32,8 +40,41 @@
             </div>
         </div>
     </div>
+    <br>
+
+   
+
+    <div id = "map"></div>
+
     
+    <div id="geocoder" class="geocoder"></div>
+
     <script src="app.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+<script> mapboxgl.accessToken = 'pk.eyJ1Ijoia3Jpc3RpaW5hcCIsImEiOiJja2IwanNiZDQwOHNnMzBzOXFpaHJneDV4In0.-IoIo3hGuRzKQRrj0bd_6Q';
+    var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: [-79.4512, 43.6568],
+    zoom: 13
+    });
+     
+    var geocoder = new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+    mapboxgl: mapboxgl
+    });
+     
+    let mapResult=document.getElementById("userCity").appendChild(geocoder.onAdd(map))
+    
+   
+  
+        
+ 
+  
+    </script>
+    
 </body>
 </html>
 

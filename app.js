@@ -1,3 +1,26 @@
+const cities = [];
+
+cities.push({
+    name: "Barcelona",
+    latitude: 41.41,
+    longitude: 2.19,
+});
+cities.push({
+    name: "Tokyo",
+    latitude: 35.65,
+    longitude: 139.74,
+});
+cities.push({
+    name: "Bangkok",
+    latitude: 13.75,
+    longitude: 100.50,
+});
+cities.push({
+    name: "Las Vegas",
+    latitude: 36.16,
+    longitude: 115.13,
+});
+
 const apikey = "a75595ec0a1e42379ec6d18c703db66a";
 let latitude;
 let longitude;
@@ -97,4 +120,6 @@ function getWeather(){
 }
 let button = document.getElementById("get");
 button.addEventListener("click", getWeather);
+
+
 
