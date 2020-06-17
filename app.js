@@ -1,24 +1,24 @@
 const cities = [];
 
 cities.push({
-    name: "Barcelona",
-    latitude: 41.41,
-    longitude: 2.19,
+  name: "Barcelona",
+  latitude: 41.41,
+  longitude: 2.19,
 });
 cities.push({
-    name: "Tokyo",
-    latitude: 35.65,
-    longitude: 139.74,
+  name: "Tokyo",
+  latitude: 35.65,
+  longitude: 139.74,
 });
 cities.push({
-    name: "Bangkok",
-    latitude: 13.75,
-    longitude: 100.50,
+  name: "Bangkok",
+  latitude: 13.75,
+  longitude: 100.5,
 });
 cities.push({
-    name: "Las Vegas",
-    latitude: 36.16,
-    longitude: 115.13,
+  name: "Las Vegas",
+  latitude: 36.16,
+  longitude: 115.13,
 });
 
 const apikey = "a75595ec0a1e42379ec6d18c703db66a";
@@ -49,29 +49,33 @@ function render(position) {
   get
     .then((response) => response.json())
     .then((get) => {
-     
-
       const location = get.data[0].city_name;
-      const loacationHtmlElement = document.getElementsByClassName("location")[0];
+      const loacationHtmlElement = document.getElementsByClassName(
+        "location"
+      )[0];
       loacationHtmlElement.innerHTML = "<p>" + location + "</p>";
       const temp = get.data[0].temp.toFixed(1);
-      const tempHtmlElement = document.getElementsByClassName("temperature-value")[0];
+      const tempHtmlElement = document.getElementsByClassName(
+        "temperature-value"
+      )[0];
       tempHtmlElement.innerHTML = "<p>" + temp + "°<span>C</span></p>";
       const icon = get.data[0].weather.icon;
-      const iconHtmlElement = document.getElementsByClassName("weather-icon")[0];
-      iconHtmlElement.innerHTML = "<img src='icons/" + icon + ".png' alt=''></img>";
+      const iconHtmlElement = document.getElementsByClassName(
+        "weather-icon"
+      )[0];
+      iconHtmlElement.innerHTML =
+        "<img src='icons/" + icon + ".png' alt=''></img>";
       const weatherDescription = get.data[0].weather.description;
       const weatherDescriptionHtmlElement = document.getElementsByClassName(
         "temperature-description"
       )[0];
-      weatherDescriptionHtmlElement.innerHTML = "<p>" + weatherDescription + "</p>";
+      weatherDescriptionHtmlElement.innerHTML =
+        "<p>" + weatherDescription + "</p>";
     })
     .catch((error) => {
-      console.error('Error:', error);
+      console.error("Error:", error);
     });
-    
 }
-
 function onError(error) {
   console.error(error);
   const p = document.createElement("p");
@@ -81,45 +85,99 @@ function onError(error) {
 }
 getLocation();
 
-
-function getWeather(){
-    let userCity = document.getElementById("userCity").value;
-  
-    const getCity = fetch(
-      "https://api.weatherbit.io/v2.0/current?" +
-        "city=" +
-        userCity +
+function getWeather() {
+  let userCity = document.getElementById("userCity").value;
+  const getCity = fetch(
+    "https://api.weatherbit.io/v2.0/current?" +
+      "city=" +
+      userCity +
       "&key=" +
       apikey
-    );
-    getCity
-.then((response) => response.json())
-.then((get) => {
-
-  const location =get.data[0].city_name;
-  const loacationHtmlElement = document.getElementsByClassName("location")[0];
-  loacationHtmlElement.innerHTML = "<p>" + location + "</p>";
-  const temp = get.data[0].temp.toFixed(1);
-  const tempHtmlElement = document.getElementsByClassName("temperature-value")[0];
-  tempHtmlElement.innerHTML = "<p>" + temp + "°<span>C</span></p>";
-  const icon = get.data[0].weather.icon;
-  const iconHtmlElement = document.getElementsByClassName("weather-icon")[0];
-  iconHtmlElement.innerHTML = "<img src='icons/" + icon + ".png' alt=''></img>";
-  const weatherDescription = get.data[0].weather.description;
-  const weatherDescriptionHtmlElement = document.getElementsByClassName(
-    "temperature-description"
-  )[0];
-  weatherDescriptionHtmlElement.innerHTML = "<p>" + weatherDescription + "</p>";
+  );
+  getCity
+    .then((response) => response.json())
+    .then((get) => {
+      const location = get.data[0].city_name;
+      const loacationHtmlElement = document.getElementsByClassName(
+        "location"
+      )[0];
+      loacationHtmlElement.innerHTML = "<p>" + location + "</p>";
+      const temp = get.data[0].temp.toFixed(1);
+      const tempHtmlElement = document.getElementsByClassName(
+        "temperature-value"
+      )[0];
+      tempHtmlElement.innerHTML = "<p>" + temp + "°<span>C</span></p>";
+      const icon = get.data[0].weather.icon;
+      const iconHtmlElement = document.getElementsByClassName(
+        "weather-icon"
+      )[0];
+      iconHtmlElement.innerHTML =
+        "<img src='icons/" + icon + ".png' alt=''></img>";
+      const weatherDescription = get.data[0].weather.description;
+      const weatherDescriptionHtmlElement = document.getElementsByClassName(
+        "temperature-description"
+      )[0];
+      weatherDescriptionHtmlElement.innerHTML =
+        "<p>" + weatherDescription + "</p>";
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
 }
-)
 
-.catch((error) => {
-  console.error('Error:', error);
-});
-
+function showCities(cities) {
+  const result = document.getElementsByClassName("result")[0];
+  result.classList.remove("hidden");
+  result.innerHTML = "";
+  for (let i = 0; i < cities.length; i++) {
+    let cityElement = favCityWeather(cities[i]);
+    result.append(cityElement);
+  }
 }
+
+function favCityWeather() {
+  let userCity = document.getElementById("userCity").value;
+  const get = fetch(
+    "https://api.weatherbit.io/v2.0/current?" +
+      "city=" +
+      userCity +
+      "&key=" +
+      apikey
+  );
+  for (let i = 0; i < cities.length; i++) {
+    if (userCity === cities[i].name) {
+      get
+        .then((response) => response.json())
+        .then((get) => {
+            const location = get.data[0].city_name;
+            const loacationHtmlElement = document.getElementsByClassName(
+              "cityLocation"
+            )[0];
+            loacationHtmlElement.innerHTML = "<p>" + location + "</p>";
+            const temp = get.data[0].temp.toFixed(1);
+            const tempHtmlElement = document.getElementsByClassName(
+              "cityTemp"
+            )[0];
+            tempHtmlElement.innerHTML = "<p>" + temp + "°<span>C</span></p>";
+            const icon = get.data[0].weather.icon;
+            const iconHtmlElement = document.getElementsByClassName(
+              "cityIcon"
+            )[0];
+            iconHtmlElement.innerHTML =
+              "<img src='icons/" + icon + ".png' alt=''></img>";
+            const weatherDescription = get.data[0].weather.description;
+            const weatherDescriptionHtmlElement = document.getElementsByClassName(
+              "cityTempDesc"
+            )[0];
+            weatherDescriptionHtmlElement.innerHTML =
+              "<p>" + weatherDescription + "</p>";
+          }
+        );
+    }
+  }
+}
+
 let button = document.getElementById("get");
 button.addEventListener("click", getWeather);
 
-
-
+button.addEventListener("click", favCityWeather);
