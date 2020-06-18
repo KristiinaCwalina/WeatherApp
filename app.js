@@ -125,59 +125,66 @@ function getWeather() {
     });
 }
 
-function showCities(cities) {
-  const result = document.getElementsByClassName("result")[0];
-  result.classList.remove("hidden");
-  result.innerHTML = "";
-  for (let i = 0; i < cities.length; i++) {
-    let cityElement = favCityWeather(cities[i]);
-    result.append(cityElement);
-  }
+const favCities = (latitude, longitude) => {
+  fetch(
+    `https://api.weatherbit.io/v2.0/current?lat=${latitude}&lon=${longitude}&key=${apikey}`
+  )
+    .then((response) => response.json())
+    .then((weather) => responseBody(weather));
+};
+
+for (let i = 0; i < cities.length; i++) {
+  favCities(cities[i].latitude, cities[i].longitude);
 }
 
-function favCityWeather() {
-  let userCity = document.getElementById("userCity").value;
-  const get = fetch(
-    "https://api.weatherbit.io/v2.0/current?" +
-      "city=" +
-      userCity +
-      "&key=" +
-      apikey
-  );
-  for (let i = 0; i < cities.length; i++) {
-    if (userCity === cities[i].name) {
-      get
-        .then((response) => response.json())
-        .then((get) => {
-            const location = get.data[0].city_name;
-            const loacationHtmlElement = document.getElementsByClassName(
-              "cityLocation"
-            )[0];
-            loacationHtmlElement.innerHTML = "<p>" + location + "</p>";
-            const temp = get.data[0].temp.toFixed(1);
-            const tempHtmlElement = document.getElementsByClassName(
-              "cityTemp"
-            )[0];
-            tempHtmlElement.innerHTML = "<p>" + temp + "°<span>C</span></p>";
-            const icon = get.data[0].weather.icon;
-            const iconHtmlElement = document.getElementsByClassName(
-              "cityIcon"
-            )[0];
-            iconHtmlElement.innerHTML =
-              "<img src='icons/" + icon + ".png' alt=''></img>";
-            const weatherDescription = get.data[0].weather.description;
-            const weatherDescriptionHtmlElement = document.getElementsByClassName(
-              "cityTempDesc"
-            )[0];
-            weatherDescriptionHtmlElement.innerHTML =
-              "<p>" + weatherDescription + "</p>";
-          }
-        );
-    }
-  }
-}
+const responseBody = (get) => {
+  let favCity = document.getElementById("favCities");
+  let container = document.createElement("div");
+
+  container.className = "container";
+  favCity.appendChild(container);
+
+  let title = document.createElement("div");
+  title.className = "app-title";
+  let p = document.createElement("p");
+  p.innerHTML = "Weather";
+  title.appendChild(p);
+  container.appendChild(title);
+
+  let notif = document.createElement("div");
+  container.appendChild(notif);
+  let weatherContainer = document.createElement("div");
+  weatherContainer.className = "weather-container";
+  container.appendChild(weatherContainer);
+
+  let weatherIcon = document.createElement("div");
+  weatherIcon.className = "weather-icon";
+  let icon = document.createElement("img");
+  icon.src = "icons/" + get.data[0].weather.icon + ".png";
+  weatherIcon.appendChild(icon);
+  weatherContainer.appendChild(weatherIcon);
+
+  let temp = document.createElement("div");
+  temp.className = "temperature-value";
+  let par = document.createElement("p");
+  par.innerHTML = get.data[0].temp.toFixed(1);
+  temp.appendChild(par);
+  weatherContainer.appendChild(temp);
+
+  let description = document.createElement("div");
+  description.className = "temperature-description";
+  let descPar = document.createElement("p");
+  descPar.innerHTML = get.data[0].weather.description;
+  description.appendChild(descPar);
+  weatherContainer.appendChild(description);
+
+  let location = document.createElement("div");
+  location.className = "location";
+  let locPar = document.createElement("p");
+  locPar.innerHTML = get.data[0].city_name;
+  location.appendChild(locPar);
+  weatherContainer.appendChild(location);
+};
 
 let button = document.getElementById("get");
 button.addEventListener("click", getWeather);
-
-button.addEventListener("click", favCityWeather);

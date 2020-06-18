@@ -41,61 +41,13 @@ type="text/css"
         </div>
     </div>
     <br>
-    <div class="container">
-        <div class="app-title">
-            <p>Weather</p>
-        </div>
-    <div class="result hidden">
-        <div class="city">
-            <div class="weather-container">
-                <div class="cityIcon">
-                    <img src="icons/" alt="weather icon">
-                </div>
-                <div class="cityTemp">
-                    <p>- °<span>C</span></p>
-                </div>
-                <div class="cityTempDesc">
-                    <p> - </p>
-                </div>
-                <div class="cityLocation">
-                    <p>-</p>
-                </div>
-            </div>
-        </div>
+   
+    <div id = "favCities"class = "favCities">
     </div>
 
-   
-<!--
-    <div id = "map"></div>
--->
-    
-    <div id="geocoder" class="geocoder"></div>
 
     <script src="app.js"></script>
-    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
-<script> mapboxgl.accessToken = 'pk.eyJ1Ijoia3Jpc3RpaW5hcCIsImEiOiJja2IwanNiZDQwOHNnMzBzOXFpaHJneDV4In0.-IoIo3hGuRzKQRrj0bd_6Q';
-    var map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v11',
-    center: [-79.4512, 43.6568],
-    zoom: 13
-    });
-     
-    var geocoder = new MapboxGeocoder({
-    accessToken: mapboxgl.accessToken,
-    mapboxgl: mapboxgl
-    });
-     
-    let mapResult=document.getElementById("userCity").appendChild(geocoder.onAdd(map))
-    
-   
   
-        
- 
-  
-    </script>
     
 </body>
 </html>
