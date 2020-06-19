@@ -56,12 +56,26 @@ type="text/css"
 var map = new mapboxgl.Map({
 container: 'map',
 style: 'mapbox://styles/mapbox/streets-v11',
-center: [41.3851, 2.1734],
-zoom: 3
+center: [2.1734,41.3851],
+zoom: 5
 });
  
 var marker = new mapboxgl.Marker()
-.setLngLat([51.507400, 0.127800],[41.3851, 2.1734],[35.6762, 139.6503])
+.setLngLat([0.127800, 51.507400])
+
+.addTo(map);
+var marker1 = new mapboxgl.Marker()
+.setLngLat([2.1734,41.3851])
+
+.addTo(map);
+
+var marker2 = new mapboxgl.Marker()
+.setLngLat([24.7536,59.4370])
+
+.addTo(map);
+
+var marker3 = new mapboxgl.Marker()
+.setLngLat([139.6503,35.6762])
 
 .addTo(map);
     </script>
