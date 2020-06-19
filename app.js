@@ -11,14 +11,14 @@ cities.push({
   longitude: 139.74,
 });
 cities.push({
-  name: "Bangkok",
-  latitude: 13.75,
-  longitude: 100.5,
+  name: "Tallinn",
+  latitude: 59.43,
+  longitude: 24.75,
 });
 cities.push({
-  name: "Las Vegas",
-  latitude: 36.16,
-  longitude: 115.13,
+  name: "London",
+  latitude: 51.5,
+  longitude: 0.12,
 });
 
 const apikey = "a75595ec0a1e42379ec6d18c703db66a";
@@ -141,31 +141,31 @@ const responseBody = (get) => {
   let favCity = document.getElementById("favCities");
   let container = document.createElement("div");
 
-  container.className = "container";
+  container.className = "cityContainer";
   favCity.appendChild(container);
 
   let title = document.createElement("div");
-  title.className = "app-title";
+  title.className = "city-title";
   let p = document.createElement("p");
-  p.innerHTML = "Weather";
+  p.innerHTML = get.data[0].city_name;
   title.appendChild(p);
   container.appendChild(title);
 
   let notif = document.createElement("div");
   container.appendChild(notif);
   let weatherContainer = document.createElement("div");
-  weatherContainer.className = "weather-container";
+  weatherContainer.className = "city-container";
   container.appendChild(weatherContainer);
 
   let weatherIcon = document.createElement("div");
-  weatherIcon.className = "weather-icon";
+  weatherIcon.className = "city-icon";
   let icon = document.createElement("img");
   icon.src = "icons/" + get.data[0].weather.icon + ".png";
   weatherIcon.appendChild(icon);
   weatherContainer.appendChild(weatherIcon);
 
   let temp = document.createElement("div");
-  temp.className = "temperature-value";
+  temp.className = "temperature-city";
   let par = document.createElement("p");
   par.innerHTML = get.data[0].temp.toFixed(1);
   temp.appendChild(par);
